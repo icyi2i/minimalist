@@ -5,12 +5,12 @@ A minimal list app.
 ## Pages/Components Tree
 
 - Common
-    - AddList()
     - Navigation
-- Home
-    - About
-- Dashboard
-    - Favorites
+        - AddList()
+    - Home
+        - About
+    - Dashboard
+        - Favorites
 - ListIndex[]
     - List
         - Title

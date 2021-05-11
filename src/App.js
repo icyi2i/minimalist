@@ -1,6 +1,7 @@
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import ListIndex from './components/ListIndex'
+import Navigation from './components/Navigation'
 import reduxion from './reducers'
 
 
@@ -13,7 +14,7 @@ const App = () => {
 
     return (
         <Provider store={store}>
-            <h1>Hello from minimalist!</h1>
+            <Navigation />
             <ListIndex />
         </Provider>
     )
