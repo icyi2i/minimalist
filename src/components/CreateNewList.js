@@ -3,7 +3,7 @@ import ListIndexAction from '../actions/ListIndexAction'
 import { v4 } from 'uuid'
 import { Button } from 'semantic-ui-react'
 
-const CreateNewList = () => {
+const CreateNewList = (props) => {
     const payload = {
         title: "",
         description: "",
@@ -11,12 +11,16 @@ const CreateNewList = () => {
     }
     const dispatch = useDispatch()
 
+    const createNewList = () => dispatch(
+        ListIndexAction.create({
+            ...payload,
+            id: v4(),
+            date: new Date() - 1000
+            }))
     return (
         <Button
-            onClick={() => dispatch(
-                ListIndexAction.create({...payload, id: v4()}))}
-            icon="add" labelPosition="left" content="Create new"
-            color="green"/>
+            onClick={createNewList} size="massive" circular
+            icon="add" positive className="floating-button" />
     )
 }
 

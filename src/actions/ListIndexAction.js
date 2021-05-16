@@ -10,5 +10,4 @@ const ListIndexAction = {
     }),
 }
 
-
 export default ListIndexAction
