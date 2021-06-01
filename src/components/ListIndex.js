@@ -1,48 +1,56 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Grid, Header, Icon, Input } from 'semantic-ui-react'
 import ListIndexCard from './ListIndexCard'
 import Masonry from "react-masonry-css"
 import CreateNewList from "./CreateNewList"
 
-const ListIndex = () => {
+const ListIndex = (props) => {
     // const store = useStore()
 
-    const [searchItem, setSearchItem] = useState({
-        content: "",
-        class: "normal"
-    })
+    const [searchText, setSearchText] = useState("")
 
-    const filterSearch = (event) => {
-        let inputContent = event.target.value
-        setSearchItem({
-            ...searchItem,
-            content: inputContent
-        })
-    }
+    const filterSearch = (event) => setSearchText(event.target.value)
 
     const listsSelector = (state) => state.lists
     let lists = useSelector(listsSelector)
 
-    let lists_title = lists.filter(x => {
-        return x.title.toLowerCase().includes(searchItem.content.toLowerCase())
+    // if (props.starred) {
+    //     let filterStar = Object.keys(lists).filter(key => {
+    //         return lists[key].starred
+    //     })
+    //     lists = [...new Set([
+    //         ...filterStar,
+    //         ...filterTitle,
+    //         ...filterDescription])]
+    // }
+
+
+    let filterTitle = Object.keys(lists).filter(key => {
+        let list = lists[key]
+        return list.title.toLowerCase().includes(
+            searchText.toLowerCase())
     })
-    let lists_description = lists.filter(x => {
-        return x.description.toLowerCase().includes(searchItem.content.toLowerCase())
+    let filterDescription = Object.keys(lists).filter(key => {
+        let list = lists[key]
+        return list.description.toLowerCase().includes(
+            searchText.toLowerCase())
     })
-    lists = [...new Set([...lists_title, ...lists_description])]
-    lists = lists.sort((a,b) => {
-        let dt_a = new Date(a.date).getTime()
-        let dt_b = new Date(b.date).getTime()
+
+    let resultLists = [...new Set([...filterTitle, ...filterDescription])]
+
+    resultLists = resultLists.sort((a,b) => {
+        let dt_a = new Date(lists[a].date).getTime()
+        let dt_b = new Date(lists[b].date).getTime()
         return (dt_a < dt_b) ? 1 : ((dt_a > dt_b) ? -1 : 0)
     })
 
-    const emptyMessage = searchItem.content.length ?
-        "Search another term or check Trash" :
-        "Try creating one!"
-    const emptyIcon = searchItem.content.length ?
-        "meh outline" :
-        "smile outline"
+    resultLists = props.starred ? resultLists.filter(key=> lists[key].starred) : resultLists
+
+    const emptyMessage = ! searchText.length && ! resultLists.length ?
+        "Try creating one!": ! resultLists.length ? "Search another term or check archive" : ""
+    const emptyIcon = ! searchText.length && ! resultLists.length ?
+        "smile outline" : ! resultLists.length ? "meh outline" : ""
 
     const breakpoints = {
         default: 8,
@@ -60,7 +68,7 @@ const ListIndex = () => {
                 <Grid.Column widescreen="4" largeScreen="6" computer="10" tablet="12" mobile="16">
                     <Input icon="search" placeholder="Search lists..." fluid onChange={filterSearch}/>
                 </Grid.Column>
-                {! lists.length ? (
+                {! resultLists.length ? (
                     <Grid.Row>
                         <Header as='h2' icon>
                             <Icon name={emptyIcon} size="huge"/>
@@ -72,16 +80,15 @@ const ListIndex = () => {
                     </Grid.Row>
                 ) : ""}
             </Grid>
-            {lists.length ? (
+            {resultLists.length ? (
                 <Grid as={Masonry} breakpointCols={breakpoints} className="padded" >
                     {
-                        lists.map((listDetails, index) => (
-                            <ListIndexCard key={index} {...listDetails}/>
+                        resultLists.map((listID) => (
+                            <ListIndexCard key={listID} id={listID} {...lists[listID]}/>
                         ))
                         }
                 </Grid>
                 ):""}
-            <div className="spacer"></div>
             <CreateNewList floating={true}/>
         </div>
         </>

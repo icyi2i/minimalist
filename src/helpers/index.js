@@ -8,9 +8,12 @@ const humanizeDate = (date) => {
     return relativeTime(dt)
 }
 
+const removeItem = (list, n) => [...list.slice(0, n), ...list.slice(n+1)]
+
 const helpers = {
     trim : trim,
     humanizeDate : humanizeDate,
+    removeItem : removeItem,
 }
 
 export default helpers

@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 
-import ListIndexReducer from "./ListIndexReducer";
+import ListReducer from "./ListReducer";
 
 const reduxion = combineReducers({
-    lists : ListIndexReducer,
+    lists : ListReducer,
 })
 
 export default reduxion

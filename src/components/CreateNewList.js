@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import ListIndexAction from '../actions/ListIndexAction'
+import ListAction from '../actions/ListAction'
 import { v4 } from 'uuid'
 import { Button } from 'semantic-ui-react'
 
@@ -12,15 +12,20 @@ const CreateNewList = (props) => {
     const dispatch = useDispatch()
 
     const createNewList = () => dispatch(
-        ListIndexAction.create({
-            ...payload,
-            id: v4(),
-            date: new Date() - 1000
+        ListAction.create({
+            data : {
+                ...payload,
+                date: new Date() - 1000
+            },
+            listId: v4(),
             }))
     return (
-        <Button
+        <>
+            <div className="spacer"></div>
+            <Button
             onClick={createNewList} size="massive" circular
             icon="add" positive className="floating-button" />
+        </>
     )
 }
 

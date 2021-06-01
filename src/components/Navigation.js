@@ -1,8 +1,9 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Button, Header, Menu, Sidebar } from "semantic-ui-react"
 import MediaInfo from "../Media"
 
-const Nav = (props) => {
+const Navigation = (props) => {
 
     const { Media } = MediaInfo
 
@@ -18,26 +19,31 @@ const Nav = (props) => {
             icon: "star"
         },
         {
-            path: "/lists/trashed",
-            content: "Trash",
-            icon: "trash"
+            path: "/lists/archived",
+            content: "Archived",
+            icon: "archive"
         },
     ]
-    let overlayClass =  props.sidebarVisible ? "dimmed-overlay" : ""
 
-    const toggleSidebar = ()=> props.setSidebarVisible(! props.visible)
+    const [sidebarVisible, setSidebarVisible] = useState(false)
+
+    let overlayClass =  sidebarVisible ? "dimmed-overlay" : ""
+
+    const toggleSidebar = ()=> setSidebarVisible(! sidebarVisible)
+    const hideSidebar = ()=> setSidebarVisible(false)
 
     return (
         <>
             <Media lessThan="tablet">
-                <Sidebar as={Menu} animation="push"
-                    onHide={() => props.setSidebarVisible(false)}
-                    visible={props.sidebarVisible}>
+                <Sidebar as={ Menu } animation="push"
+                    onHide={ hideSidebar }
+                    visible={ sidebarVisible }>
                     <Menu fluid vertical>
                         <div className="spacer"></div>
                         {
                             navigationOptions.map((menuItem, index) => (
-                                <Menu.Item key={index}>
+                                <Menu.Item as="div" key={index}
+                                    onClick={hideSidebar}>
                                     <Link to={menuItem.path}>
                                         <Header
                                             as="h3"
@@ -62,8 +68,7 @@ const Nav = (props) => {
                             size="large"/>
                     </Link>
                 </Menu.Item>
-                <Menu.Menu
-                    key="links"
+                <Menu.Menu key="links"
                     as={Media}
                     className="right floated align-center"
                     greaterThanOrEqual="tablet">
@@ -81,8 +86,7 @@ const Nav = (props) => {
                         ))
                     }
                 </Menu.Menu>
-                <Menu.Menu
-                    key="sidebar-toggler"
+                <Menu.Menu key="sidebar-toggler"
                     as={Media}
                     className="right-absolute align-center"
                     lessThan="tablet">
@@ -96,10 +100,10 @@ const Nav = (props) => {
                 </Menu.Menu>
             </Menu>
             <Media lessThan="tablet">
-            <div className={`${overlayClass} fill-h`}></div>
+                <div className={`${overlayClass} fill-h`}></div>
             </Media>
         </>
     )
 }
 
-export default Nav
+export default Navigation
