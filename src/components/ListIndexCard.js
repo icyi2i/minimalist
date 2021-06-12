@@ -23,7 +23,7 @@ const ListIndexCard = (props) => {
 
     // console.log(id, starred);
     return (
-        <Card fluid >
+        <Card fluid className="high">
             <Card.Content>
                 <Link to={`/lists/${id}`}>
                     <Header className="m-0 mb-1" size="tiny" as="h4" content={displayTitle}/>

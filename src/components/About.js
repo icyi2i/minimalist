@@ -1,5 +1,6 @@
 import React from 'react'
-import { Grid, Header, Icon, Segment } from "semantic-ui-react"
+import { Link } from "react-router-dom"
+import { Button, Grid, Header, Icon, Segment } from "semantic-ui-react"
 
 const About = () => {
 
@@ -47,6 +48,8 @@ const About = () => {
                     ))
                 }
             </Grid>
+            <Button as={Link} to="/lists" color="blue" content="Start"
+                size="big" inverted/>
             </Segment>
 
         </div>

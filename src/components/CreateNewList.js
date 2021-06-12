@@ -24,7 +24,7 @@ const CreateNewList = (props) => {
             <div className="spacer"></div>
             <Button
             onClick={createNewList} size="massive" circular
-            icon="add" positive className="floating-button" />
+            icon="add" positive className="floating-button high" />
         </>
     )
 }

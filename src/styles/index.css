@@ -1,5 +1,5 @@
 body {
-  background-color: #f9fafb;
+  background-color: #f9fafb !important;
   /* padding-top: 1rem; */
 }
 
@@ -188,6 +188,9 @@ body {
     display: block !important;
     text-align: center !important;
 }
+.text-center{
+    text-align: center;
+}
 
 .ui.push.sidebar{
     z-index: 100 !important;
@@ -210,15 +213,69 @@ body {
     margin-top: auto !important
 }
 
-.checked-input, .checked-input input{
+.checked, .checked label{
     text-decoration: line-through !important;
-    text-decoration-color: #aaa !important;
-    color: #888 !important;
+    text-decoration-color: #000 !important;
+    color: #444 !important;
 }
-
-
+div.checked, div.checked div{
+    text-decoration: line-through !important;
+    text-decoration-color: #000 !important;
+    color: #444 !important;
+    opacity: 40%;
+}
+div.editable div{
+    align-content: center !important;
+    display: grid !important;
+    white-space: pre-wrap
+}
 .bottom-action {
     position: fixed;
     bottom: 0rem;
     width: 100%;
+}
+
+.meta {
+    color: #0006;
+}
+
+.strong{
+    font-weight: bold;
+}
+
+.fixed-bottom-action{
+    position: fixed !important;
+    bottom: 2rem !important;
+    width: inherit !important;
+}
+
+textarea{
+    scrollbar-width: thin;
+}
+
+.high{
+    box-shadow: 0 0 0.5rem #2224 !important;
+}
+
+.break-word{
+    overflow-wrap: break-word;
+}
+
+.height-max-content{
+    height: max-content;
+}
+
+[contenteditable] {
+    outline: 0px solid transparent;
+}
+
+.ui.form ::placeholder{
+    color: #666 !important;
+}
+.ui.form textarea:focus{
+    border-color: rgb(49, 155, 255) !important;
+}
+
+.whitespaced{
+    white-space: pre-wrap;
 }
